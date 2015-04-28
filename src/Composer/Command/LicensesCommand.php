@@ -18,7 +18,7 @@ use Composer\Plugin\CommandEvent;
 use Composer\Plugin\PluginEvents;
 use Composer\Package\PackageInterface;
 use Composer\Repository\RepositoryInterface;
-use Symfony\Component\Console\Helper\Table;
+use Symfony\Component\Console\Helper\TableHelper;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
@@ -74,10 +74,10 @@ EOT
                 $this->getIO()->write('Dependencies:');
                 $this->getIO()->write('');
 
-                $table = new Table($output);
-                $table->setStyle('compact');
-                $table->getStyle()->setVerticalBorderChar('');
-                $table->getStyle()->setCellRowContentFormat('%s  ');
+                /** @var TableHelper $table */
+                $table = $this->getHelperSet()->get('table');
+                $table->setLayout(TableHelper::LAYOUT_BORDERLESS);
+                $table->setHorizontalBorderChar('');
                 $table->setHeaders(array('Name', 'Version', 'License'));
                 foreach ($packages as $package) {
                     $table->addRow(array(
