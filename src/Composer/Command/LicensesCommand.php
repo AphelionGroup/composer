@@ -75,10 +75,11 @@ EOT
                 $this->getIO()->write('Dependencies:');
                 $this->getIO()->write('');
 
-                /** @var HelperInterface $table */
+                /** @var TableHelper $table */
                 $table = $this->getHelperSet()->get('table');
                 $table->setLayout(TableHelper::LAYOUT_BORDERLESS);
                 $table->setHorizontalBorderChar('');
+                $table->setHeaders(array('Name', 'Version', 'License'));
                 foreach ($packages as $package) {
                     $table->addRow(array(
                         $package->getPrettyName(),
